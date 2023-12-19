@@ -12,7 +12,8 @@ cat >"$(read_action_input scratch-dir)"/Dancefile.extract <<EOF
 FROM busybox:1
 COPY buildstamp buildstamp
 RUN --mount=type=cache,target="$(read_action_input cache-target)" \
-    mkdir -p /var/dance-cache/ \
+    ls "$(read_action_input cache-target)" \
+    && mkdir -p /var/dance-cache/ \
     && cp -p -R "$(read_action_input cache-target)"/. /var/dance-cache/ || true
 EOF
 cat "$(read_action_input scratch-dir)"/Dancefile.extract
